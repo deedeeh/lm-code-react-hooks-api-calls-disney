@@ -18,10 +18,12 @@ const App : React.FC = () => {
     getCharacters(1);
   }, []);
 
+
   const getCharacters = async (pageNumber: number) => {
     try {
       const apiResponse = await axios(`https://api.disneyapi.dev/characters?page=${pageNumber}`);
       setCharacters(apiResponse.data.data);
+      console.log(apiResponse.data.data)
     } catch(error) {
       console.log(error);
     } 
