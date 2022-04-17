@@ -1,4 +1,3 @@
-
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Header from './components/header';
@@ -7,7 +6,10 @@ import Navigation from './components/navigation';
 import { DisneyCharacter } from './disney_character';
 import axios from 'axios';
 
+const initialValue = (favourites: Array<number>) => [];
+
 export const FavouritesContext = React.createContext<Array<number>>([]);
+export const UpdateFavouritesContext = React.createContext<(favourites: Array<number>) => void>(initialValue);
 
 const App : React.FC = () => {
 
@@ -33,14 +35,15 @@ const App : React.FC = () => {
 
   return (
     <FavouritesContext.Provider value={characterFavourites}>
-      <div className="page">
-        <Header currentPage={currentPage} />
-        <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
-        <CharacterContainer 
-          characters={characters} 
-          updateFavourites={setCharacterFavourites}
-        />
-      </div>
+      <UpdateFavouritesContext.Provider value={setCharacterFavourites}>
+        <div className="page">
+          <Header currentPage={currentPage} />
+          <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          <CharacterContainer 
+            characters={characters} 
+          />
+        </div>
+      </UpdateFavouritesContext.Provider>
     </FavouritesContext.Provider>
   );
 }
