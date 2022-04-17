@@ -9,8 +9,6 @@ interface INavigation {
 
 const Navigation : React.FC<INavigation> = ({ currentPage, setCurrentPage }) => {
 
-    const characterFavourites = useContext(FavouritesContext);
-
     const nextPage = () => {
         const newPageNumber = currentPage + 1;
         setCurrentPage(newPageNumber);
